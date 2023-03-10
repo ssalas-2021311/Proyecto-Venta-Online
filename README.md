@@ -11,4 +11,4 @@ Para ejecutar el proyecto
 npm run dev
 ```
 
--Las peticiones se encenran en,
+-Las peticiones se encuentran en,
