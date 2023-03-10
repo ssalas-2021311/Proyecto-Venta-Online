@@ -6,5 +6,9 @@ Para instalar los modulos de node ejecutar el comando
 ```
 npm install
 ```
+Para ejecutar el proyecto
+```
+npm run dev
+```
 
 -Las peticiones se encenran en,
