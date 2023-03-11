@@ -27,6 +27,14 @@ const ProductoSchema = Schema({
     },
     descripcion: { 
         type: String 
+    },
+    stock:{
+        type: Number,
+        default: 0
+    },
+    vendidos:{
+        type: Number,
+        default: 0
     }
 });
 

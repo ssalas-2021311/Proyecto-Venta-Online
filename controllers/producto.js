@@ -16,10 +16,38 @@ const obtenerProductos = async(req = request, res = response) => {
      ]);
  
      res.json({
-         msg: 'GET API de usuarios',
+         msg: 'GET API de productos',
          listaProductos
      });
 
+}
+
+const masVendidos = async (req = request, res = response) => {
+
+    const listaMasVendidos = await Promise.all([
+
+        Producto.find({ vendidos: { $gt: 1 } })
+            .populate('usuario', 'nombre')
+            .populate('categoria', 'nombre')
+    ])
+
+    res.json({
+        msg: 'Productos mas vendidos',
+        listaMasVendidos
+    })
+}
+const agotados = async (req = request, res = response) => {
+
+    const listaAgotados = await Promise.all([
+
+        Producto.find({ vendidos: { $eq: 0 } })
+            .populate('usuario', 'nombre')
+            .populate('categoria', 'nombre')
+    ])
+    res.json({
+        msg: 'Productos agotados',
+        listaAgotados
+    })
 }
 
 const obtenerProductoPorId = async(req = request, res = response) => {
@@ -30,7 +58,7 @@ const obtenerProductoPorId = async(req = request, res = response) => {
                                             .populate('categoria', 'nombre');
 
     res.json({
-        msg: 'categoria por id',
+        msg: 'producto por id',
         producto
     });
 
@@ -39,7 +67,7 @@ const obtenerProductoPorId = async(req = request, res = response) => {
 
 const crearProducto = async (req = request, res = response) => {
                                 //operador spread
-        const { estado, usuario, ...body } = req.body;
+        const { estado, usuario, vendidos, ...body } = req.body;
 
         //validación si existe un producto en la db
         const productoEnDB = await Producto.findOne( { nombre: body.nombre } );
@@ -99,12 +127,12 @@ const eliminarProducto = async(req = request, res = response) => {
     const { id } = req.params;
 
     //eliminar fisicamente y guardar
-    const productoBorrado = await Producto.findByIdAndDelete(id);
+    //const productoBorrado = await Producto.findByIdAndDelete(id);
 
     // O bien cambiando el estado del usuario
 
     //editar y guardar
-    //const productoBorrado = await Producto.findByIdAndUpdate(id, { estado: false }, { new: true });
+    const productoBorrado = await Producto.findByIdAndUpdate(id, { estado: false }, { new: true });
 
     res.json({
         msg: 'delete producto',
@@ -120,5 +148,7 @@ module.exports = {
     obtenerProductoPorId,
     crearProducto,
     actualizarProducto,
-    eliminarProducto
+    eliminarProducto,
+    masVendidos,
+    agotados
 }

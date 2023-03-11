@@ -14,7 +14,7 @@ const { obtenerCategorias, obtenerCategoriaPorId, crearCategoria, actualizarCate
 const router = Router();
 
 // Obtener todas las categorias - publico
-router.get('/', obtenerCategorias);
+router.get('/mostrar', obtenerCategorias);
 
 // Obtener una categoria por el id - publico
 router.get('/:id', [
@@ -26,6 +26,7 @@ router.get('/:id', [
 // Crear Categoria - privado - cualquier persona con un token valido
 router.post('/agregar', [
     validarJWT,
+    esAdminRole,
     check('nombre', 'El nombre de la categoria es obligatorio').not().isEmpty(),
     validarCampos
 ], crearCategoria);
@@ -33,6 +34,7 @@ router.post('/agregar', [
 // Actualizar Categoria - privado - se requiere id y un token valido
 router.put('/editar/:id', [
     validarJWT,
+    esAdminRole,
     check('id', 'No es un id de mongo valido').isMongoId(),
     check('id').custom( existeCategoriaPorId ),
     check('nombre', 'El nombre de la categoria es obligatorio').not().isEmpty(),

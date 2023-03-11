@@ -14,7 +14,7 @@ const obtenerCategorias = async(req = request, res = response) => {
      ]);
  
      res.json({
-         msg: 'GET API de usuarios',
+         msg: 'GET API de categorias',
         listaCategorias
      });
 

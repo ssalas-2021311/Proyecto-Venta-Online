@@ -4,7 +4,7 @@ const esAdminRole = ( req = request, res = response, next ) => {
 
     if ( !req.usuario ) {
         return res.status(500).json({
-            msg: 'Se quiere verficar el role sin validar el token primero'
+            msg: 'Antes de validar tu rol, debes estar logueado'
         });
     }
 
@@ -13,7 +13,7 @@ const esAdminRole = ( req = request, res = response, next ) => {
     const { rol, nombre  } = req.usuario
     if ( rol !== 'ADMIN_ROLE') {
         return res.status(401).json({
-            msg: `${ nombre } no es admin - No puede hacer esto >:v`
+            msg: `${ nombre } no es admin - solo el admin puede acceder`
         });
     }
 
@@ -21,6 +21,24 @@ const esAdminRole = ( req = request, res = response, next ) => {
 
 }
 
+const esClienteRole = (req = request, res = response) => {
+    if (!req.usuario) {
+        return res.status(500).json({
+            msg: 'Antes de validar tu rol, debes estar logueado.'
+        })
+    }
+
+    const {rol, nombre} = req.usuario
+    if (rol === 'CLIENTE_ROLE') {
+        return res.status(200).json({
+            msg: `${ nombre } eres un cliente`
+        })
+    }
+
+    next();
+}
+
 module.exports = {
-    esAdminRole
+    esAdminRole,
+    esClienteRole
 }

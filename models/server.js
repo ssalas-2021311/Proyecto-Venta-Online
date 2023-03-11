@@ -15,7 +15,9 @@ class Server {
             auth: '/api/auth',
             usuario: '/api/usuarios',
             categoria: '/api/categorias',
-            producto: '/api/productos'
+            producto: '/api/productos',
+            carrito: '/api/carrito',
+            factura:'/api/factura'
         }
 
         //Conectar a base de datos
@@ -55,6 +57,8 @@ class Server {
         this.app.use( this.paths.categoria, require('../routes/categoria'));
         this.app.use( this.paths.producto, require('../routes/producto'));
         this.app.use( this.paths.usuario , require('../routes/usuario') );
+        this.app.use( this.paths.carrito, require('../routes/carrito'));
+        this.app.use( this.paths.factura, require('../routes/factura'));
     }
 
 

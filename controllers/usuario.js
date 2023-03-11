@@ -4,6 +4,7 @@ const bcryptjs = require('bcryptjs');
 
 //Modelos
 const Usuario = require('../models/usuario');
+const usuario = require('../models/usuario');
 
 
 const getUsuarios = async (req = request, res = response) => {
@@ -17,7 +18,7 @@ const getUsuarios = async (req = request, res = response) => {
     ]);
 
     res.json({
-        msg: 'GET API de usuarios',
+        msg: 'Mostrando todos los usuarios existentes',
         listaUsuarios
     });
 
@@ -36,7 +37,7 @@ const postUsuario = async (req = request, res = response) => {
     await usuarioDB.save();
 
     res.status(201).json({
-        msg: 'POST API de usuario',
+        msg: 'Usuario creado con exito',
         usuarioDB
     });
 
@@ -47,7 +48,13 @@ const putUsuario = async (req = request, res = response) => {
     const { id } = req.params;
 
     //Ignoramos el _id, rol, estado y google al momento de editar y mandar la petición en el req.body
-    const { _id, rol, estado, google, ...resto } = req.body;
+    const { _id, rol, estado, ...resto } = req.body;
+
+    if ( rol == 'ADMIN_ROLE') {
+        return res.status(401).json({
+            msg: "No se puede editar a un admin"
+        });
+    }
 
     // //Encriptar password
     const salt = bcryptjs.genSaltSync();
@@ -67,6 +74,12 @@ const putUsuario = async (req = request, res = response) => {
 const deleteUsuario = async (req = request, res = response) => {
 
     const { id } = req.params;
+    const rol = req.usuario.rol;
+    if (rol != 'ADMIN_ROLE') {
+        return res.status(401).json({
+            msg: "No se puede eliminar a un admin"
+        });
+    }
 
     //eliminar fisicamente y guardar
     const usuarioEliminado = await Usuario.findByIdAndDelete(id);
@@ -83,11 +96,67 @@ const deleteUsuario = async (req = request, res = response) => {
 
 }
 
+const registroUsuario = async (req = request, res = response) => {
+    const {nombre, correo, password} = req.body;
+    const usuarioRegistrado = new Usuario({nombre, correo, password});
+    const salt = bcryptjs.genSaltSync();
+    usuarioRegistrado.password = bcryptjs.hashSync(password, salt);
+    
+    await usuarioRegistrado.save();
+
+    res.status(201).json({
+        msg: 'Nuevo cliente registrado',
+        usuarioRegistrado
+        
+    })
+    
+
+}
+
+const deleteCuentaUsuario = async(req = request, res = response) => {
+    const {id} = req.params;
+    const usuarioId = req.usuario._id;
+
+    if(id === usuarioId){
+        const usuarioEliminado = await Usuario.findByIdAndDelete(id);
+        usuarioEliminado
+    } else{
+        return res.status(401).json({
+            msg: 'No tienes permiso para eliminar este usuario'
+        })
+    }
+
+}
+
+const updateCuentaUsuario = async(req = request, res = response) => {
+    const {id} = req.params;
+    const usuarioId = req.usuario._id;
+    if(id === usuarioId){
+        const {_id, estado, rol, ...resto} = req.body;
+
+        const salt = bcryptjs.genSaltSync();
+        resto.password = bcryptjs.hashSync(resto.password, salt);
+    
+        const usuarioEditado = await Usuario.findByIdAndUpdate(id, resto);
+        res.json({
+            msg: 'Usuario editado',
+            usuarioEditado
+        })
+    } else{
+        return res.status(401).json({
+            msg: 'No tienes permiso para editar este usuario'
+        })
+    }
+}
+
 
 
 module.exports = {
     getUsuarios,
     postUsuario,
     putUsuario,
-    deleteUsuario
+    deleteUsuario,
+    registroUsuario,
+    deleteCuentaUsuario,
+    updateCuentaUsuario
 }
