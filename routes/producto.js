@@ -15,9 +15,16 @@ const { obtenerProductos,
         actualizarProducto,
         eliminarProducto, 
         masVendidos,
-        agotados} = require('../controllers/producto');
+        productosAgotados} = require('../controllers/producto');
 
 const router = Router();
+
+router.get('/masvendidos', masVendidos)
+
+router.get('/agotados', [
+    validarJWT,
+    esAdminRole
+], productosAgotados)
 
 // Obtener todas los productos - publico
 router.get('/mostrar', obtenerProductos);
@@ -56,9 +63,5 @@ router.delete('/eliminar/:id',[
     check('id').custom( existeProductoPorId ),
     validarCampos
 ], eliminarProducto);
-
-router.get('/masvendidos', masVendidos)
-
-router.get('/agotados', agotados)
 
 module.exports = router;

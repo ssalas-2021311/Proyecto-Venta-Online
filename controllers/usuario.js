@@ -67,7 +67,7 @@ const putUsuario = async (req = request, res = response) => {
     const usuarioEditado = await Usuario.findByIdAndUpdate(id, resto);
 
     res.json({
-        msg: 'PUT API de usuario',
+        msg: 'PUT API de usuario',  
         usuarioEditado
     });
 
@@ -134,7 +134,7 @@ const deleteCuentaUsuario = async(req = request, res = response) => {
 
 const updateCuentaUsuario = async(req = request, res = response) => {
     const {id} = req.params;
-    const usuarioId = req.usuario._id;
+    const usuarioId = req.usuario.id;
     if(id === usuarioId){
         const {_id, estado, rol, ...resto} = req.body;
 

@@ -36,18 +36,21 @@ const masVendidos = async (req = request, res = response) => {
         listaMasVendidos
     })
 }
-const agotados = async (req = request, res = response) => {
+const productosAgotados = async (req = request, res = response) => {
 
-    const listaAgotados = await Promise.all([
+    const query = { estado: false };
 
-        Producto.find({ vendidos: { $eq: 0 } })
-            .populate('usuario', 'nombre')
-            .populate('categoria', 'nombre')
-    ])
-    res.json({
-        msg: 'Productos agotados',
-        listaAgotados
-    })
+     const listaProductoss = await Promise.all([
+         Producto.countDocuments(query),
+         Producto.find(query)
+                .populate('usuario', 'nombre')
+                .populate('categoria', 'nombre')
+     ]);
+ 
+     res.json({
+         msg: 'Productos agotados',
+         listaProductoss
+     });
 }
 
 const obtenerProductoPorId = async(req = request, res = response) => {
@@ -150,5 +153,5 @@ module.exports = {
     actualizarProducto,
     eliminarProducto,
     masVendidos,
-    agotados
+    productosAgotados
 }

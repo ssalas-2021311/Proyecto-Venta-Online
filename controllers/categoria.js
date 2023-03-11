@@ -88,12 +88,12 @@ const eliminarCategoria = async(req = request, res = response) => {
 
     const { id } = req.params;
     //eliminar fisicamente y guardar
-    //const categoriaBorrada = await Categoria.findByIdAndDelete(id);
+    const categoriaBorrada = await Categoria.findByIdAndDelete(id);
 
     // O bien cambiando el estado del usuario
 
     //editar y guardar
-    const categoriaBorrada = await Categoria.findByIdAndUpdate(id, { estado: false }, { new: true });
+    //const categoriaBorrada = await Categoria.findByIdAndUpdate(id, { estado: false }, { new: true });
 
     res.json({
         msg: 'delete categoria',
