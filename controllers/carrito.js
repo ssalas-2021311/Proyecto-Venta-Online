@@ -17,7 +17,7 @@ const getCarrito = async (req = request, res = response) => {
 //crear carrito vacio
 const postCarrito = async (req = request, res = response) => {
 
-    const usuario = req.user._id;
+    const usuario = req.usuario._id;
 
     const carritoExiste = await Carrito.findOne({usuario: usuario});
     if (carritoExiste) {
@@ -38,7 +38,7 @@ const postCarrito = async (req = request, res = response) => {
 
 const agregarAlCarrito = async (req = request, res = response) => {
     const {idProducto} = req.params;
-    const usuario = req.user._id;
+    const usuario = req.usuario._id;
     
 
     const producto = await Producto.findOne(idProducto);

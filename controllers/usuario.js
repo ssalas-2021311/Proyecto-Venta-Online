@@ -5,6 +5,7 @@ const bcryptjs = require('bcryptjs');
 //Modelos
 const Usuario = require('../models/usuario');
 const usuario = require('../models/usuario');
+const Role = require('../models/role');
 
 
 const getUsuarios = async (req = request, res = response) => {
@@ -50,9 +51,11 @@ const putUsuario = async (req = request, res = response) => {
     //Ignoramos el _id, rol, estado y google al momento de editar y mandar la petición en el req.body
     const { _id, rol, estado, ...resto } = req.body;
 
-    if ( rol == 'ADMIN_ROLE') {
+    const rolDB = await Role.findOne({rol: 'ADMIN_ROLE'})
+    const usuario = await Usuario.findOne({_id: id})
+    if (usuario.rol == rolDB.rol) {
         return res.status(401).json({
-            msg: "No se puede editar a un admin"
+            msg: "No se puede editar un admin"
         });
     }
 
@@ -74,8 +77,9 @@ const putUsuario = async (req = request, res = response) => {
 const deleteUsuario = async (req = request, res = response) => {
 
     const { id } = req.params;
-    const rol = req.usuario.rol;
-    if (rol != 'ADMIN_ROLE') {
+    const rolDB = await Role.findOne({rol: 'ADMIN_ROLE'})
+    const usuario = await Usuario.findOne({_id: id})
+    if (usuario.rol == rolDB.rol) {
         return res.status(401).json({
             msg: "No se puede eliminar a un admin"
         });
