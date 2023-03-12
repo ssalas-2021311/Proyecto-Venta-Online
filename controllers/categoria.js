@@ -34,7 +34,6 @@ const obtenerCategoriaPorId = async(req = request, res = response) => {
 
 }
 
-
 const crearCategoria = async (req = request, res = response) => {
 
     const nombre  = req.body.nombre.toUpperCase();

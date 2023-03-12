@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 
-const { existeProductoPorId } = require('../helpers/db-validators');
+const { existeProductoPorId, existeProducto, categoriaExiste } = require('../helpers/db-validators');
 
 // Middlewares
 const { validarCampos } = require('../middlewares/validar-campos');
@@ -15,7 +15,9 @@ const { obtenerProductos,
         actualizarProducto,
         eliminarProducto, 
         masVendidos,
-        productosAgotados} = require('../controllers/producto');
+        productosAgotados,
+        getObtenerProductoPorNombre,
+        getObtenerPorNombreCategoria} = require('../controllers/producto');
 
 const router = Router();
 
@@ -28,6 +30,16 @@ router.get('/agotados', [
 
 // Obtener todas los productos - publico
 router.get('/mostrar', obtenerProductos);
+
+router.get('/obtenerProductoPorNombre', [
+    check('nombre').custom(existeProducto),
+    validarCampos
+], getObtenerProductoPorNombre);
+
+router.get('/productosNombreCategoria/:idProductoCategoria', [
+    check('nombre').custom(categoriaExiste),
+    validarCampos
+], getObtenerPorNombreCategoria);
 
 // Obtener un producto por el id - publico
 router.get('/:id', [
@@ -42,6 +54,7 @@ router.post('/agregar', [
     esAdminRole,
     check('nombre', 'El nombre del producto es obligatorio').not().isEmpty(),
     check('categoria', 'El id de la categoria del producto es obligatorio').not().isEmpty(),
+    check('precio', 'El precio del producto es obligatorio').not().isEmpty(),
     validarCampos
 ], crearProducto);
 

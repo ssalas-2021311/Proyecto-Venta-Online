@@ -21,17 +21,17 @@ const esAdminRole = ( req = request, res = response, next ) => {
 
 }
 
-const esClienteRole = (req = request, res = response) => {
+const esClienteRole = (req = request, res = response, next) => {
     if (!req.usuario) {
         return res.status(500).json({
             msg: 'Antes de validar tu rol, debes estar logueado.'
         })
     }
 
-    const {rol, nombre} = req.usuario
+    const {rol} = req.usuario
     if (rol === 'CLIENTE_ROLE') {
         return res.status(200).json({
-            msg: `${ nombre } eres un cliente`
+            msg: 'Eres un cliente'
         })
     }
 

@@ -36,10 +36,13 @@ const login = async( req = request, res = response ) => {
 
         //Generar JWT
         const token = await generarJWT( usuario.id );
+
+        const salt = bcryptjs.genSaltSync();
+        Password = bcryptjs.hashSync(usuario.password, salt)
     
         res.json({
             msg: 'Login Auth Funciona!',
-            correo, password,
+            correo, Password,
             token
         });
 

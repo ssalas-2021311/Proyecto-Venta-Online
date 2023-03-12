@@ -41,7 +41,7 @@ const agregarAlCarrito = async (req = request, res = response) => {
     const usuario = req.usuario._id;
     
 
-    const producto = await Producto.findOne(idProducto);
+    const producto = await Producto.findOne({_id: idProducto});
     const carritoCoincide = await Carrito.findOne({usuario: usuario});
 
     let subtotalCarrito = carritoCoincide.subtotal + producto.precio;
@@ -59,7 +59,7 @@ const agregarAlCarrito = async (req = request, res = response) => {
         {new: true}
     );
     res.json({
-        msg: 'carrito actualizado',
+        msg:'carrito actualizado',
         carritoActualizado
     })
 

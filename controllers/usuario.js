@@ -119,11 +119,14 @@ const registroUsuario = async (req = request, res = response) => {
 
 const deleteCuentaUsuario = async(req = request, res = response) => {
     const {id} = req.params;
-    const usuarioId = req.usuario._id;
+    const usuarioId = req.usuario.id;
 
     if(id === usuarioId){
         const usuarioEliminado = await Usuario.findByIdAndDelete(id);
-        usuarioEliminado
+        return res.status(401).json({
+            msg: 'Cuenta eliminada',
+            usuarioEliminado
+        })
     } else{
         return res.status(401).json({
             msg: 'No tienes permiso para eliminar este usuario'

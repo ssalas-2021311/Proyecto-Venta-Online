@@ -1,5 +1,8 @@
 //Importacion
 const { response, request } = require('express');
+const categoria = require('../models/categoria');
+const Categoria = require('../models/categoria');
+const producto = require('../models/producto');
 //Modelos
 const Producto = require('../models/producto');
 
@@ -67,10 +70,36 @@ const obtenerProductoPorId = async(req = request, res = response) => {
 
 }
 
+const getObtenerProductoPorNombre = async(req = request, res = response) => {
+
+    const {nombre} = req.body;
+
+    const buscarProducto = await Producto.findOne({nombre}).populate('categoria', 'nombre')
+
+    res.json({
+        buscarProducto
+    })
+}
+
+const getObtenerPorNombreCategoria = async(req = request, res = response) => {
+    const { idProductoCategoria } = req.params;
+    const query = { categoria: idProductoCategoria }
+
+    const listaProducto = await Promise.all([
+        Producto.countDocuments(query),
+        Producto.find(query).populate('categoria', 'nombre')
+    ]);
+
+    res.json({
+        msg: 'productos por id de categoria',
+        listaProducto
+    })
+}
+
 
 const crearProducto = async (req = request, res = response) => {
                                 //operador spread
-        const { estado, usuario, vendidos, ...body } = req.body;
+        const { estado, usuario, ...body } = req.body;
 
         //validación si existe un producto en la db
         const productoEnDB = await Producto.findOne( { nombre: body.nombre } );
@@ -130,12 +159,12 @@ const eliminarProducto = async(req = request, res = response) => {
     const { id } = req.params;
 
     //eliminar fisicamente y guardar
-    //const productoBorrado = await Producto.findByIdAndDelete(id);
+    const productoBorrado = await Producto.findByIdAndDelete(id);
 
     // O bien cambiando el estado del usuario
 
     //editar y guardar
-    const productoBorrado = await Producto.findByIdAndUpdate(id, { estado: false }, { new: true });
+    //const productoBorrado = await Producto.findByIdAndUpdate(id, { estado: false }, { new: true });
 
     res.json({
         msg: 'delete producto',
@@ -149,6 +178,8 @@ const eliminarProducto = async(req = request, res = response) => {
 module.exports = {
     obtenerProductos,
     obtenerProductoPorId,
+    getObtenerProductoPorNombre,
+    getObtenerPorNombreCategoria,
     crearProducto,
     actualizarProducto,
     eliminarProducto,

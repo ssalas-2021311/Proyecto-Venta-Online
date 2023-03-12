@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "28a56fb3-950f-4e1e-8d41-54d2584dedb3",
+		"name": "Venta-Online-peticiones",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login-admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"correo\": \"ShiroS@gmail.com\",\r\n    \"password\": \"123456789\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "peticiones-usuarios",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDBiOTYwYTQxYTU1ZDc0ODZkYTIwMzgiLCJpYXQiOjE2Nzg1ODE4NzIsImV4cCI6MTY3ODU5OTg3Mn0.KWapFeu2ICGnjTRWPCCFechC89AeJ6jRHKj5Ug29sMs",
+						"type": "default",
+						"disabled": true
+					},
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDBkMDM4OGFkMTc0MzFjNDg1YWU5MGUiLCJpYXQiOjE2Nzg1ODI0MjUsImV4cCI6MTY3ODYwMDQyNX0.JYiWmk8rvOzOQhxbPUdSR4JtlQt5tOujen2I4eSTh4I",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/usuarios/eliminarmicuenta/640d0388ad17431c485ae90e",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuarios",
+						"eliminarmicuenta",
+						"640d0388ad17431c485ae90e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "peticiones-categorias",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDBiOTYwYTQxYTU1ZDc0ODZkYTIwMzgiLCJpYXQiOjE2Nzg1NTE3MjAsImV4cCI6MTY3ODU2OTcyMH0.5zBpfRlyfdFSEtJEwVRmiKedUOglxoe1OVG_VJRzP5o",
+						"type": "default"
+					},
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDBjYWIwZGQyNWI1ODRmZmZmNTNkZmQiLCJpYXQiOjE2Nzg1NTE5NzcsImV4cCI6MTY3ODU2OTk3N30.EmnkP9KqQa_IhH9SddIPrgzqsjMk_2QgWJ2pJldwLuY",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"implementos de cocina\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/categorias/eliminar/640cb2336382db678d008281",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"categorias",
+						"eliminar",
+						"640cb2336382db678d008281"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "peticiones-productos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDBiOTYwYTQxYTU1ZDc0ODZkYTIwMzgiLCJpYXQiOjE2Nzg1NTE3MjAsImV4cCI6MTY3ODU2OTcyMH0.5zBpfRlyfdFSEtJEwVRmiKedUOglxoe1OVG_VJRzP5o",
+						"type": "default",
+						"disabled": true
+					},
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDBjYWIwZGQyNWI1ODRmZmZmNTNkZmQiLCJpYXQiOjE2Nzg1NTE5NzcsImV4cCI6MTY3ODU2OTk3N30.EmnkP9KqQa_IhH9SddIPrgzqsjMk_2QgWJ2pJldwLuY",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/productos/productosNombreCategoria/640cb2046382db678d00827d",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"productosNombreCategoria",
+						"640cb2046382db678d00827d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login-client",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"correo\": \"CarlosXD@gmail.com\",\r\n    \"password\": \"123456789\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "peticiones-factura",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDBiOTYwYTQxYTU1ZDc0ODZkYTIwMzgiLCJpYXQiOjE2Nzg1NzMxNjksImV4cCI6MTY3ODU5MTE2OX0.kDWaCXDouGfk9mFSh3il6fXJV9ht4_DaaY5TVWyvBEQ",
+						"type": "default"
+					},
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDBjYWIwZGQyNWI1ODRmZmZmNTNkZmQiLCJpYXQiOjE2Nzg1NTE5NzcsImV4cCI6MTY3ODU2OTk3N30.EmnkP9KqQa_IhH9SddIPrgzqsjMk_2QgWJ2pJldwLuY",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n                \"usuario\": \"640cab0dd25b584ffff53dfd\",\r\n                \"fecha\": \"2023-03-11T18:37:12.000Z\",\r\n                \"total\": 10,\r\n                \"detalle\": [\r\n                    {\r\n                        \"_id\": \"640cb91c49a6fa8819ffb1e5\",\r\n                        \"nombre\": \"CUCHARONES\",\r\n                        \"estado\": true,\r\n                        \"usuario\": \"640b960a41a55d7486da2038\",\r\n                        \"precio\": 15,\r\n                        \"categoria\": \"640cb2506382db678d008289\",\r\n                        \"stock\": 50,\r\n                        \"vendidos\": 44,\r\n                        \"__v\": 0\r\n                    },\r\n                    {\r\n                        \"_id\": \"640cb5de49a6fa8819ffb1e1\",\r\n                        \"nombre\": \"TENEDORES\",\r\n                        \"estado\": true,\r\n                        \"usuario\": \"640b960a41a55d7486da2038\",\r\n                        \"precio\": 22,\r\n                        \"categoria\": \"640cb2506382db678d008289\",\r\n                        \"stock\": 50,\r\n                        \"vendidos\": 40,\r\n                        \"__v\": 0\r\n                    },\r\n                    {\r\n                        \"_id\": \"640cb5de49a6fa8819ffb1e1\",\r\n                        \"nombre\": \"TENEDORES\",\r\n                        \"estado\": true,\r\n                        \"usuario\": \"640b960a41a55d7486da2038\",\r\n                        \"precio\": 22,\r\n                        \"categoria\": \"640cb2506382db678d008289\",\r\n                        \"stock\": 50,\r\n                        \"vendidos\": 40,\r\n                        \"__v\": 0\r\n                    }\r\n                ]\r\n                \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/factura/editarFactura/640cca6f3622568b057c8c18",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"factura",
+						"editarFactura",
+						"640cca6f3622568b057c8c18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "peticiones-carrito",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NDBjYWIwZGQyNWI1ODRmZmZmNTNkZmQiLCJpYXQiOjE2Nzg1NTE5NzcsImV4cCI6MTY3ODU2OTk3N30.EmnkP9KqQa_IhH9SddIPrgzqsjMk_2QgWJ2pJldwLuY",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/carrito/mostrar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carrito",
+						"mostrar"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

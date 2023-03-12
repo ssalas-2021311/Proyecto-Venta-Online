@@ -31,6 +31,21 @@ const existeUsuarioPorId = async( id ) => {
 
 }
 
+const existeProducto = async(nombre = '')=> {
+    const existeProductDB = await Producto.findOne({nombre});
+    if (!existeProductDB){
+        throw new Error(`El producto ${ nombre }, no existe en la DB `);
+    }
+}
+
+const categoriaExiste = async( nombre = '') => {
+    //Verificar si el rol es valido y existe en la DB
+    const existeCategoria = await Categoria.findOne( { nombre } );
+    if ( existeCategoria) {
+        throw new Error(`La categoria ${ nombre }, ya esta registrado en la DB `);
+    }
+}
+
 const existeCategoriaPorId = async( id ) => {
 
     //Verificar si existe el ID
@@ -43,7 +58,6 @@ const existeCategoriaPorId = async( id ) => {
 
 
 const existeProductoPorId = async( id ) => {
-
     //Verificar si existe el ID
     const existIdOfProduct = await Producto.findById( id );
     if ( !existIdOfProduct ) {
@@ -56,6 +70,8 @@ const existeProductoPorId = async( id ) => {
 module.exports = {
     emailExiste,
     esRoleValido,
+    existeProducto,
+    categoriaExiste,
     existeUsuarioPorId,
     existeCategoriaPorId,
     existeProductoPorId
